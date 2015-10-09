@@ -58,4 +58,4 @@ complete_data_dt <- as.data.table(complete_data)
 final_data <- aggregate(complete_data_dt, by = list(activity = complete_data_dt$activity, 
                                                     subject = complete_data_dt$subject), mean)
 
-write.table(final_data, "final_data.txt", sep="\t")
+write.table(final_data, "final_data.txt", sep="\t", row.name=FALSE)
