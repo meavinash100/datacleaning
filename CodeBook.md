@@ -1,11 +1,14 @@
 ##Code book for Coursera Getting and Cleaning Data Course Project
 ###Description of Data set
+
 * Data is pulled from Human Activity Recognition Using Smartphones Data Set UCI machine learning repository
 * Data contains 561 attributes
 * 2,947 rows(observations) in the test data set x_test.txt; and 7,352 rows (observations) in x_train.txt
 * Reference link 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
 ###Data Transformations
+
 * Consolidate training and test data set under data set "complete_data", also add subject and activity columns.
 * Identify and retain only the columns that has mean and standard deviations
 * Attach column names to the data set
