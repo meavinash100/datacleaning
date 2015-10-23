@@ -2,20 +2,32 @@
 #Input: Input for this scrip Samsung acceleometer data set should be present 
 #in the working directory. All the files should be present in a folder name "UCI HAR Dataset".
 require("data.table")
+require("dplyr")
 if(!file.exists("./UCI HAR Dataset")){
       stop("No dataset available.")
 }
 
 # Read training data, test data, activity and feature data files
-test_data_x <- read.csv("./UCI HAR Dataset/test/X_test.txt", sep = "", header = FALSE)
-test_data_activity <- read.csv("./UCI HAR Dataset/test/y_test.txt", header = FALSE)
-test_data_subject <- read.csv("./UCI HAR Dataset/test/subject_test.txt", header = FALSE)
-train_data_x <- read.csv("./UCI HAR Dataset/train/X_train.txt", sep = "", header = FALSE)
-train_data_actiity <- read.csv("./UCI HAR Dataset/train/y_train.txt", header = FALSE)
-train_data_subject <- read.csv("./UCI HAR Dataset/train/subject_train.txt", header = FALSE)
-feature_names <- read.csv("./UCI HAR Dataset/features.txt", sep = "", header = FALSE,
+test_data_x <- read.csv("./UCI HAR Dataset/test/X_test.txt", 
+                        sep = "", 
+                        header = FALSE)
+test_data_activity <- read.csv("./UCI HAR Dataset/test/y_test.txt", 
+                               header = FALSE)
+test_data_subject <- read.csv("./UCI HAR Dataset/test/subject_test.txt", 
+                              header = FALSE)
+train_data_x <- read.csv("./UCI HAR Dataset/train/X_train.txt", sep = "", 
+                         header = FALSE)
+train_data_actiity <- read.csv("./UCI HAR Dataset/train/y_train.txt", 
+                               header = FALSE)
+train_data_subject <- read.csv("./UCI HAR Dataset/train/subject_train.txt", 
+                               header = FALSE)
+feature_names <- read.csv("./UCI HAR Dataset/features.txt", 
+                          sep = "", 
+                          header = FALSE,
                           stringsAsFactors = FALSE)
-activity_labels <- read.csv("./UCI HAR Dataset/activity_labels.txt", sep = "", header = FALSE)
+activity_labels <- read.csv("./UCI HAR Dataset/activity_labels.txt", 
+                            sep = "", 
+                            header = FALSE)
 
 #Mergind the training and testing data
 #Also adding activity and subject columns (Step 1)
@@ -55,7 +67,13 @@ levels(complete_data$activity) <- levels(activity_labels$V2)
 #and each subject
 
 complete_data_dt <- as.data.table(complete_data)
-final_data <- aggregate(complete_data_dt, by = list(activity = complete_data_dt$activity, 
-                                                    subject = complete_data_dt$subject), mean)
+final_data <- aggregate(complete_data_dt, 
+                        by = list(activity = complete_data_dt$activity, 
+                                  subject = complete_data_dt$subject), 
+                        mean)
+final_data <- final_data[,-(89:90)]
 
-write.table(final_data, "final_data.txt", sep="\t", row.name=FALSE)
+write.table(final_data, 
+            "final_data.txt", 
+            sep="\t", 
+            row.name=FALSE)
